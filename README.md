@@ -1,0 +1,1 @@
+# springdoc-data-rest-example
