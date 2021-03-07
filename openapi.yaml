@@ -24,7 +24,7 @@ paths:
                 $ref: '#/components/schemas/CollectionModelEntityModelClinic'
             text/uri-list:
               schema:
-                $ref: '#/components/schemas/CollectionModelEntityModelClinic'
+                type: string
     post:
       tags:
       - clinic-entity-controller
@@ -34,7 +34,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Clinic'
+              $ref: '#/components/schemas/ClinicRequestBody'
+        required: true
       responses:
         "201":
           description: Created
@@ -78,7 +79,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Clinic'
+              $ref: '#/components/schemas/ClinicRequestBody'
+        required: true
       responses:
         "200":
           description: OK
@@ -125,7 +127,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Clinic'
+              $ref: '#/components/schemas/ClinicRequestBody'
+        required: true
       responses:
         "200":
           description: OK
@@ -153,7 +156,7 @@ paths:
                 $ref: '#/components/schemas/CollectionModelEntityModelDoctor'
             text/uri-list:
               schema:
-                $ref: '#/components/schemas/CollectionModelEntityModelDoctor'
+                type: string
     post:
       tags:
       - doctor-entity-controller
@@ -163,7 +166,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Doctor'
+              $ref: '#/components/schemas/DoctorRequestBody'
+        required: true
       responses:
         "201":
           description: Created
@@ -171,6 +175,25 @@ paths:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/EntityModelDoctor'
+  /doctors/search/findByClinicsContains:
+    get:
+      tags:
+      - doctor-search-controller
+      operationId: executeSearch-doctor-get
+      parameters:
+      - name: clinic
+        in: query
+        schema:
+          $ref: '#/components/schemas/Clinic'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelEntityModelDoctor'
+        "404":
+          description: Not Found
   /doctors/{id}:
     get:
       tags:
@@ -207,7 +230,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Doctor'
+              $ref: '#/components/schemas/DoctorRequestBody'
+        required: true
       responses:
         "200":
           description: OK
@@ -254,7 +278,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Doctor'
+              $ref: '#/components/schemas/DoctorRequestBody'
+        required: true
       responses:
         "200":
           description: OK
@@ -285,7 +310,7 @@ paths:
                 $ref: '#/components/schemas/CollectionModelClinic'
             text/uri-list:
               schema:
-                $ref: '#/components/schemas/CollectionModelClinic'
+                type: string
         "404":
           description: Not Found
     put:
@@ -309,7 +334,8 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              $ref: '#/components/schemas/CollectionModelObject'
+              type: string
+        required: true
       responses:
         "200":
           description: OK
@@ -362,7 +388,8 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              $ref: '#/components/schemas/CollectionModelObject'
+              type: string
+        required: true
       responses:
         "200":
           description: OK
@@ -457,13 +484,13 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/CollectionModelEntityModelOwner'
+                $ref: '#/components/schemas/PagedModelEntityModelOwner'
             application/x-spring-data-compact+json:
               schema:
-                $ref: '#/components/schemas/CollectionModelEntityModelOwner'
+                $ref: '#/components/schemas/PagedModelEntityModelOwner'
             text/uri-list:
               schema:
-                $ref: '#/components/schemas/CollectionModelEntityModelOwner'
+                type: string
     post:
       tags:
       - owner-entity-controller
@@ -473,7 +500,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Owner'
+              $ref: '#/components/schemas/OwnerRequestBody'
+        required: true
       responses:
         "201":
           description: Created
@@ -517,7 +545,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Owner'
+              $ref: '#/components/schemas/OwnerRequestBody'
+        required: true
       responses:
         "200":
           description: OK
@@ -564,7 +593,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Owner'
+              $ref: '#/components/schemas/OwnerRequestBody'
+        required: true
       responses:
         "200":
           description: OK
@@ -595,7 +625,7 @@ paths:
                 $ref: '#/components/schemas/CollectionModelPet'
             text/uri-list:
               schema:
-                $ref: '#/components/schemas/CollectionModelPet'
+                type: string
         "404":
           description: Not Found
     put:
@@ -619,7 +649,8 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              $ref: '#/components/schemas/CollectionModelObject'
+              type: string
+        required: true
       responses:
         "200":
           description: OK
@@ -672,7 +703,8 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              $ref: '#/components/schemas/CollectionModelObject'
+              type: string
+        required: true
       responses:
         "200":
           description: OK
@@ -767,13 +799,13 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/CollectionModelEntityModelPet'
+                $ref: '#/components/schemas/PagedModelEntityModelPet'
             application/x-spring-data-compact+json:
               schema:
-                $ref: '#/components/schemas/CollectionModelEntityModelPet'
+                $ref: '#/components/schemas/PagedModelEntityModelPet'
             text/uri-list:
               schema:
-                $ref: '#/components/schemas/CollectionModelEntityModelPet'
+                type: string
     post:
       tags:
       - pet-entity-controller
@@ -783,7 +815,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pet'
+              $ref: '#/components/schemas/PetRequestBody'
+        required: true
       responses:
         "201":
           description: Created
@@ -827,7 +860,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pet'
+              $ref: '#/components/schemas/PetRequestBody'
+        required: true
       responses:
         "200":
           description: OK
@@ -874,7 +908,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pet'
+              $ref: '#/components/schemas/PetRequestBody'
+        required: true
       responses:
         "200":
           description: OK
@@ -905,7 +940,7 @@ paths:
                 $ref: '#/components/schemas/EntityModelOwner'
             text/uri-list:
               schema:
-                $ref: '#/components/schemas/EntityModelOwner'
+                type: string
         "404":
           description: Not Found
     put:
@@ -929,7 +964,8 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              $ref: '#/components/schemas/CollectionModelObject'
+              type: string
+        required: true
       responses:
         "200":
           description: OK
@@ -982,7 +1018,8 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              $ref: '#/components/schemas/CollectionModelObject'
+              type: string
+        required: true
       responses:
         "200":
           description: OK
@@ -1192,6 +1229,86 @@ components:
           type: string
         country:
           type: string
+    EntityModelOwner:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        addresses:
+          $ref: '#/components/schemas/Address'
+        _links:
+          $ref: '#/components/schemas/Links'
+    PageMetadata:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+        number:
+          type: integer
+          format: int64
+    PagedModelEntityModelOwner:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            owners:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityModelOwner'
+        _links:
+          $ref: '#/components/schemas/Links'
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+    OwnerRequestBody:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstname:
+          type: string
+        lastname:
+          type: string
+        addresses:
+          $ref: '#/components/schemas/Address'
+        pets:
+          type: array
+          items:
+            type: string
+    CollectionModelPet:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            pets:
+              type: array
+              items:
+                $ref: '#/components/schemas/PetResponse'
+        _links:
+          $ref: '#/components/schemas/Links'
+    CollectionModelObject:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            objects:
+              type: array
+              items:
+                type: object
+        _links:
+          $ref: '#/components/schemas/Links'
     Clinic:
       required:
       - name
@@ -1209,210 +1326,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Address'
-    Doctor:
-      required:
-      - firstname
-      - lastname
+    ClinicResponse:
       type: object
       properties:
-        id:
+        name:
           type: string
-          format: uuid
-        firstname:
-          type: string
-        lastname:
-          type: string
-        specialty:
-          type: string
-          enum:
-          - ALLERGY_AND_IMMUNOLOGY
-          - ADOLESCENT_MEDICINE
-          - ANESTHESIOLOGY
-          - AEROSPACE_MEDICINE
-          - BARIATRICS
-          - CARDIOLOGY
-          - CARDIOTHORACIC_SURGERY
-          - CHILD_AND_ADOLESCENT_PSYCHIATRY
-          - CLINICAL_NEUROPHYSIOLOGY
-          - COLORECTAL_SURGERY
-          - DERMATOLOGY
-          - DEVELOPMENTAL_PEDIATRICS
-          - EMERGENCY_MEDICINE
-          - ENDOCRINOLOGY
-          - FAMILY_MEDICINE
-          - FORENSIC_PATHOLOGY
-          - FORENSIC_PSYCHIATRY
-          - GASTROENTEROLOGY
-          - GENERAL_SURGERY
-          - GENERAL_SURGICAL_ONCOLOGY
-          - GERIATRICS
-          - GERIATRIC_PSYCHIATRY
-          - GYNECOLOGIC_ONCOLOGY
-          - HEMATOLOGY
-          - HEMATOLOGIC_PATHOLOGY
-          - INFECTIOUS_DISEASE
-          - INTERNAL_MEDICINE
-          - INTERVENTIONAL_RADIOLOGY
-          - INTENSIVE_CARE_MEDICINE
-          - MATERNAL_FETAL_MEDICINE
-          - MEDICAL_BIOCHEMISTRY
-          - MEDICAL_GENETICS
-          - MEDICAL_ONCOLOGY
-          - NEONATOLOGY
-          - NEPHROLOGY
-          - NEUROLOGY
-          - NEUROPATHOLOGY
-          - NEUROSURGERY
-          - NUCLEAR_MEDICINE
-          - OBSTETRICS_AND_GYNECOLOGY
-          - OCCUPATIONAL_MEDICINE
-          - OPHTHALMOLOGY
-          - ORTHOPEDIC_SURGERY
-          - ORAL_AND_MAXILLOFACIAL_SURGERY
-          - OTORHINOLARYNGOLOGY
-          - PALLIATIVE_CARE
-          - PATHOLOGY
-          - PEDIATRICS
-          - PEDIATRIC_ALLERGY_AND_IMMUNOLOGY
-          - PEDIATRIC_CARDIOLOGY
-          - PEDIATRIC_EMERGENCY_MEDICINE
-          - PEDIATRIC_ENDOCRINOLOGY
-          - PEDIATRIC_GASTROENTEROLOGY
-          - PEDIATRIC_HEMATOLOGY_AND_ONCOLOGY
-          - PEDIATRIC_INFECTIOUS_DISEASE
-          - PEDIATRIC_NEPHROLOGY
-          - PEDIATRIC_RESPIRATORY_MEDICINE
-          - PEDIATRIC_RHEUMATOLOGY
-          - PEDIATRIC_SURGERY
-          - PHYSICAL_MEDICINE_AND_REHABILITATION
-          - PLASTIC_RECONSTRUCTIVE_AND_AESTHETIC_SURGERY
-          - PSYCHIATRY
-          - PUBLIC_HEALTH
-          - RADIATION_ONCOLOGY
-          - RADIOLOGY
-          - REPRODUCTIVE_ENDOCRINOLOGY_AND_INFERTILITY
-          - RESPIRATORY_MEDICINE
-          - RHEUMATOLOGY
-          - SPORTS_MEDICINE
-          - THORACIC_SURGERY
-          - NEURORADIOLOGY
-          - UROLOGY
-          - VASCULAR_SURGERY
-        clinics:
+        addresses:
           maxItems: 2147483647
           minItems: 1
           uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/Clinic'
-    EntityModelDoctor:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        firstname:
-          type: string
-        lastname:
-          type: string
-        specialty:
-          type: string
-          enum:
-          - ALLERGY_AND_IMMUNOLOGY
-          - ADOLESCENT_MEDICINE
-          - ANESTHESIOLOGY
-          - AEROSPACE_MEDICINE
-          - BARIATRICS
-          - CARDIOLOGY
-          - CARDIOTHORACIC_SURGERY
-          - CHILD_AND_ADOLESCENT_PSYCHIATRY
-          - CLINICAL_NEUROPHYSIOLOGY
-          - COLORECTAL_SURGERY
-          - DERMATOLOGY
-          - DEVELOPMENTAL_PEDIATRICS
-          - EMERGENCY_MEDICINE
-          - ENDOCRINOLOGY
-          - FAMILY_MEDICINE
-          - FORENSIC_PATHOLOGY
-          - FORENSIC_PSYCHIATRY
-          - GASTROENTEROLOGY
-          - GENERAL_SURGERY
-          - GENERAL_SURGICAL_ONCOLOGY
-          - GERIATRICS
-          - GERIATRIC_PSYCHIATRY
-          - GYNECOLOGIC_ONCOLOGY
-          - HEMATOLOGY
-          - HEMATOLOGIC_PATHOLOGY
-          - INFECTIOUS_DISEASE
-          - INTERNAL_MEDICINE
-          - INTERVENTIONAL_RADIOLOGY
-          - INTENSIVE_CARE_MEDICINE
-          - MATERNAL_FETAL_MEDICINE
-          - MEDICAL_BIOCHEMISTRY
-          - MEDICAL_GENETICS
-          - MEDICAL_ONCOLOGY
-          - NEONATOLOGY
-          - NEPHROLOGY
-          - NEUROLOGY
-          - NEUROPATHOLOGY
-          - NEUROSURGERY
-          - NUCLEAR_MEDICINE
-          - OBSTETRICS_AND_GYNECOLOGY
-          - OCCUPATIONAL_MEDICINE
-          - OPHTHALMOLOGY
-          - ORTHOPEDIC_SURGERY
-          - ORAL_AND_MAXILLOFACIAL_SURGERY
-          - OTORHINOLARYNGOLOGY
-          - PALLIATIVE_CARE
-          - PATHOLOGY
-          - PEDIATRICS
-          - PEDIATRIC_ALLERGY_AND_IMMUNOLOGY
-          - PEDIATRIC_CARDIOLOGY
-          - PEDIATRIC_EMERGENCY_MEDICINE
-          - PEDIATRIC_ENDOCRINOLOGY
-          - PEDIATRIC_GASTROENTEROLOGY
-          - PEDIATRIC_HEMATOLOGY_AND_ONCOLOGY
-          - PEDIATRIC_INFECTIOUS_DISEASE
-          - PEDIATRIC_NEPHROLOGY
-          - PEDIATRIC_RESPIRATORY_MEDICINE
-          - PEDIATRIC_RHEUMATOLOGY
-          - PEDIATRIC_SURGERY
-          - PHYSICAL_MEDICINE_AND_REHABILITATION
-          - PLASTIC_RECONSTRUCTIVE_AND_AESTHETIC_SURGERY
-          - PSYCHIATRY
-          - PUBLIC_HEALTH
-          - RADIATION_ONCOLOGY
-          - RADIOLOGY
-          - REPRODUCTIVE_ENDOCRINOLOGY_AND_INFERTILITY
-          - RESPIRATORY_MEDICINE
-          - RHEUMATOLOGY
-          - SPORTS_MEDICINE
-          - THORACIC_SURGERY
-          - NEURORADIOLOGY
-          - UROLOGY
-          - VASCULAR_SURGERY
-        clinics:
-          maxItems: 2147483647
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Clinic'
-        _links:
-          $ref: '#/components/schemas/Links'
-    CollectionModelEntityModelDoctor:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            doctors:
-              type: array
-              items:
-                $ref: '#/components/schemas/EntityModelDoctor'
-        _links:
-          $ref: '#/components/schemas/Links'
-    CollectionModelClinic:
+            $ref: '#/components/schemas/Address'
+    CollectionModelEntityModelClinic:
       type: object
       properties:
         _embedded:
@@ -1421,97 +1347,24 @@ components:
             clinics:
               type: array
               items:
-                $ref: '#/components/schemas/Clinic'
-        _links:
-          $ref: '#/components/schemas/Links'
-    CollectionModelObject:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            objects:
-              type: array
-              items:
-                type: object
-        _links:
-          $ref: '#/components/schemas/Links'
-    Owner:
-      required:
-      - addresses
-      - lastname
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        firstname:
-          type: string
-        lastname:
-          type: string
-        addresses:
-          $ref: '#/components/schemas/Address'
-        pets:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Pet'
-    Pet:
-      required:
-      - name
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        owner:
-          $ref: '#/components/schemas/Owner'
-    EntityModelPet:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        owner:
-          $ref: '#/components/schemas/Owner'
-        _links:
-          $ref: '#/components/schemas/Links'
-    CollectionModelEntityModelPet:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            pets:
-              type: array
-              items:
-                $ref: '#/components/schemas/EntityModelPet'
-        _links:
-          $ref: '#/components/schemas/Links'
-    EntityModelOwner:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        firstname:
-          type: string
-        lastname:
-          type: string
-        addresses:
-          $ref: '#/components/schemas/Address'
-        pets:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Pet'
+                $ref: '#/components/schemas/EntityModelClinic'
         _links:
           $ref: '#/components/schemas/Links'
     EntityModelClinic:
+      type: object
+      properties:
+        name:
+          type: string
+        addresses:
+          maxItems: 2147483647
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        _links:
+          $ref: '#/components/schemas/Links'
+    ClinicRequestBody:
       type: object
       properties:
         id:
@@ -1526,9 +1379,194 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Address'
+    CollectionModelEntityModelDoctor:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            doctors:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityModelDoctor'
         _links:
           $ref: '#/components/schemas/Links'
-    CollectionModelEntityModelClinic:
+    EntityModelDoctor:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        specialty:
+          type: string
+          enum:
+          - ALLERGY_AND_IMMUNOLOGY
+          - ADOLESCENT_MEDICINE
+          - ANESTHESIOLOGY
+          - AEROSPACE_MEDICINE
+          - BARIATRICS
+          - CARDIOLOGY
+          - CARDIOTHORACIC_SURGERY
+          - CHILD_AND_ADOLESCENT_PSYCHIATRY
+          - CLINICAL_NEUROPHYSIOLOGY
+          - COLORECTAL_SURGERY
+          - DERMATOLOGY
+          - DEVELOPMENTAL_PEDIATRICS
+          - EMERGENCY_MEDICINE
+          - ENDOCRINOLOGY
+          - FAMILY_MEDICINE
+          - FORENSIC_PATHOLOGY
+          - FORENSIC_PSYCHIATRY
+          - GASTROENTEROLOGY
+          - GENERAL_SURGERY
+          - GENERAL_SURGICAL_ONCOLOGY
+          - GERIATRICS
+          - GERIATRIC_PSYCHIATRY
+          - GYNECOLOGIC_ONCOLOGY
+          - HEMATOLOGY
+          - HEMATOLOGIC_PATHOLOGY
+          - INFECTIOUS_DISEASE
+          - INTERNAL_MEDICINE
+          - INTERVENTIONAL_RADIOLOGY
+          - INTENSIVE_CARE_MEDICINE
+          - MATERNAL_FETAL_MEDICINE
+          - MEDICAL_BIOCHEMISTRY
+          - MEDICAL_GENETICS
+          - MEDICAL_ONCOLOGY
+          - NEONATOLOGY
+          - NEPHROLOGY
+          - NEUROLOGY
+          - NEUROPATHOLOGY
+          - NEUROSURGERY
+          - NUCLEAR_MEDICINE
+          - OBSTETRICS_AND_GYNECOLOGY
+          - OCCUPATIONAL_MEDICINE
+          - OPHTHALMOLOGY
+          - ORTHOPEDIC_SURGERY
+          - ORAL_AND_MAXILLOFACIAL_SURGERY
+          - OTORHINOLARYNGOLOGY
+          - PALLIATIVE_CARE
+          - PATHOLOGY
+          - PEDIATRICS
+          - PEDIATRIC_ALLERGY_AND_IMMUNOLOGY
+          - PEDIATRIC_CARDIOLOGY
+          - PEDIATRIC_EMERGENCY_MEDICINE
+          - PEDIATRIC_ENDOCRINOLOGY
+          - PEDIATRIC_GASTROENTEROLOGY
+          - PEDIATRIC_HEMATOLOGY_AND_ONCOLOGY
+          - PEDIATRIC_INFECTIOUS_DISEASE
+          - PEDIATRIC_NEPHROLOGY
+          - PEDIATRIC_RESPIRATORY_MEDICINE
+          - PEDIATRIC_RHEUMATOLOGY
+          - PEDIATRIC_SURGERY
+          - PHYSICAL_MEDICINE_AND_REHABILITATION
+          - PLASTIC_RECONSTRUCTIVE_AND_AESTHETIC_SURGERY
+          - PSYCHIATRY
+          - PUBLIC_HEALTH
+          - RADIATION_ONCOLOGY
+          - RADIOLOGY
+          - REPRODUCTIVE_ENDOCRINOLOGY_AND_INFERTILITY
+          - RESPIRATORY_MEDICINE
+          - RHEUMATOLOGY
+          - SPORTS_MEDICINE
+          - THORACIC_SURGERY
+          - NEURORADIOLOGY
+          - UROLOGY
+          - VASCULAR_SURGERY
+        _links:
+          $ref: '#/components/schemas/Links'
+    DoctorRequestBody:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstname:
+          type: string
+        lastname:
+          type: string
+        specialty:
+          type: string
+          enum:
+          - ALLERGY_AND_IMMUNOLOGY
+          - ADOLESCENT_MEDICINE
+          - ANESTHESIOLOGY
+          - AEROSPACE_MEDICINE
+          - BARIATRICS
+          - CARDIOLOGY
+          - CARDIOTHORACIC_SURGERY
+          - CHILD_AND_ADOLESCENT_PSYCHIATRY
+          - CLINICAL_NEUROPHYSIOLOGY
+          - COLORECTAL_SURGERY
+          - DERMATOLOGY
+          - DEVELOPMENTAL_PEDIATRICS
+          - EMERGENCY_MEDICINE
+          - ENDOCRINOLOGY
+          - FAMILY_MEDICINE
+          - FORENSIC_PATHOLOGY
+          - FORENSIC_PSYCHIATRY
+          - GASTROENTEROLOGY
+          - GENERAL_SURGERY
+          - GENERAL_SURGICAL_ONCOLOGY
+          - GERIATRICS
+          - GERIATRIC_PSYCHIATRY
+          - GYNECOLOGIC_ONCOLOGY
+          - HEMATOLOGY
+          - HEMATOLOGIC_PATHOLOGY
+          - INFECTIOUS_DISEASE
+          - INTERNAL_MEDICINE
+          - INTERVENTIONAL_RADIOLOGY
+          - INTENSIVE_CARE_MEDICINE
+          - MATERNAL_FETAL_MEDICINE
+          - MEDICAL_BIOCHEMISTRY
+          - MEDICAL_GENETICS
+          - MEDICAL_ONCOLOGY
+          - NEONATOLOGY
+          - NEPHROLOGY
+          - NEUROLOGY
+          - NEUROPATHOLOGY
+          - NEUROSURGERY
+          - NUCLEAR_MEDICINE
+          - OBSTETRICS_AND_GYNECOLOGY
+          - OCCUPATIONAL_MEDICINE
+          - OPHTHALMOLOGY
+          - ORTHOPEDIC_SURGERY
+          - ORAL_AND_MAXILLOFACIAL_SURGERY
+          - OTORHINOLARYNGOLOGY
+          - PALLIATIVE_CARE
+          - PATHOLOGY
+          - PEDIATRICS
+          - PEDIATRIC_ALLERGY_AND_IMMUNOLOGY
+          - PEDIATRIC_CARDIOLOGY
+          - PEDIATRIC_EMERGENCY_MEDICINE
+          - PEDIATRIC_ENDOCRINOLOGY
+          - PEDIATRIC_GASTROENTEROLOGY
+          - PEDIATRIC_HEMATOLOGY_AND_ONCOLOGY
+          - PEDIATRIC_INFECTIOUS_DISEASE
+          - PEDIATRIC_NEPHROLOGY
+          - PEDIATRIC_RESPIRATORY_MEDICINE
+          - PEDIATRIC_RHEUMATOLOGY
+          - PEDIATRIC_SURGERY
+          - PHYSICAL_MEDICINE_AND_REHABILITATION
+          - PLASTIC_RECONSTRUCTIVE_AND_AESTHETIC_SURGERY
+          - PSYCHIATRY
+          - PUBLIC_HEALTH
+          - RADIATION_ONCOLOGY
+          - RADIOLOGY
+          - REPRODUCTIVE_ENDOCRINOLOGY_AND_INFERTILITY
+          - RESPIRATORY_MEDICINE
+          - RHEUMATOLOGY
+          - SPORTS_MEDICINE
+          - THORACIC_SURGERY
+          - NEURORADIOLOGY
+          - UROLOGY
+          - VASCULAR_SURGERY
+        clinics:
+          type: array
+          items:
+            type: string
+    CollectionModelClinic:
       type: object
       properties:
         _embedded:
@@ -1537,22 +1575,22 @@ components:
             clinics:
               type: array
               items:
-                $ref: '#/components/schemas/EntityModelClinic'
+                $ref: '#/components/schemas/ClinicResponse'
         _links:
           $ref: '#/components/schemas/Links'
-    CollectionModelEntityModelOwner:
+    PetResponse:
       type: object
       properties:
-        _embedded:
-          type: object
-          properties:
-            owners:
-              type: array
-              items:
-                $ref: '#/components/schemas/EntityModelOwner'
+        name:
+          type: string
+    EntityModelPet:
+      type: object
+      properties:
+        name:
+          type: string
         _links:
           $ref: '#/components/schemas/Links'
-    CollectionModelPet:
+    PagedModelEntityModelPet:
       type: object
       properties:
         _embedded:
@@ -1561,9 +1599,21 @@ components:
             pets:
               type: array
               items:
-                $ref: '#/components/schemas/Pet'
+                $ref: '#/components/schemas/EntityModelPet'
         _links:
           $ref: '#/components/schemas/Links'
+        page:
+          $ref: '#/components/schemas/PageMetadata'
+    PetRequestBody:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        owner:
+          type: string
     Link:
       type: object
       properties:
