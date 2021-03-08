@@ -9,8 +9,10 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
 import io.mewald.demo.model.Address;
+import io.mewald.demo.model.Cat;
 import io.mewald.demo.model.Clinic;
 import io.mewald.demo.model.Doctor;
+import io.mewald.demo.model.Dog;
 import io.mewald.demo.model.Owner;
 import io.mewald.demo.model.Pet;
 import io.mewald.demo.repo.ClinicRepo;
@@ -81,11 +83,11 @@ public class Application {
 				.country("Kentucky").build())
 			.build());
 		
-		Pet p1 = pRepo.save(Pet.builder().name("Bella").owner(o1).build());
-		Pet p2 = pRepo.save(Pet.builder().name("Luna").owner(o1).build());
-		Pet p3 = pRepo.save(Pet.builder().name("Charlie").owner(o1).build());
-		Pet p4 = pRepo.save(Pet.builder().name("Lucy").owner(o1).build());
-		Pet p5 = pRepo.save(Pet.builder().name("Cooper").owner(o1).build());
+		Pet p1 = pRepo.save(Dog.builder().name("Bella").owner(o1).coat(Dog.CoatType.COMBINATION).build());
+		Pet p2 = pRepo.save(Cat.builder().name("Luna").owner(o1).coat(Cat.CoatType.BICOLOR).build());
+		Pet p3 = pRepo.save(Cat.builder().name("Charlie").owner(o1).coat(Cat.CoatType.TRICOLOR).build());
+		Pet p4 = pRepo.save(Dog.builder().name("Lucy").owner(o1).coat(Dog.CoatType.WIRE).build());
+		Pet p5 = pRepo.save(Dog.builder().name("Cooper").owner(o1).coat(Dog.CoatType.CURLY).build());
 				
 		Owner o2 = oRepo.save(Owner.builder()
 			.firstname("Minni").lastname("Mouse")
@@ -95,9 +97,9 @@ public class Application {
 				.country("Glasgow").build())
 			.build());
 		
-		Pet p6 = pRepo.save(Pet.builder().name("Max").owner(o2).build());
-		Pet p7 = pRepo.save(Pet.builder().name("Bailey").owner(o2).build());
-		Pet p8 = pRepo.save(Pet.builder().name("Daisy").owner(o2).build());
+		Pet p6 = pRepo.save(Dog.builder().name("Max").owner(o2).coat(Dog.CoatType.COMBINATION).build());
+		Pet p7 = pRepo.save(Dog.builder().name("Bailey").owner(o2).coat(Dog.CoatType.HEAVY).build());
+		Pet p8 = pRepo.save(Cat.builder().name("Daisy").owner(o2).coat(Cat.CoatType.SOLID).build());
 	}
 
 	

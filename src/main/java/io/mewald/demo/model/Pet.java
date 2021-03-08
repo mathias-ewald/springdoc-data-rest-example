@@ -1,28 +1,45 @@
 package io.mewald.demo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Entity
+
+@EqualsAndHashCode(callSuper=false)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
+
+@JsonTypeInfo(
+  use = JsonTypeInfo.Id.NAME, 
+  include = JsonTypeInfo.As.PROPERTY, 
+  property = "_type")
+@JsonSubTypes({ 
+  @Type(value = Dog.class, name = "dog"),
+  @Type(value = Cat.class, name = "cat")
+})
 public class Pet extends BaseEntity {
 
-	@Schema(required = false)
+	@NonNull
 	@NotNull
 	private String name;
 	
+	@NonNull
 	@ManyToOne
 	private Owner owner;
 
