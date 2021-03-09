@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import io.mewald.demo.model.Clinic;
+import io.mewald.demo.model.medic.Clinic;
 
 @CrossOrigin
 public interface ClinicRepo extends CrudRepository<Clinic, UUID> {

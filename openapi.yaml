@@ -6,6 +6,316 @@ servers:
 - url: http://localhost:8080
   description: Generated server url
 paths:
+  /cats:
+    get:
+      tags:
+      - cat-entity-controller
+      description: get-cat
+      operationId: getCollectionResource-cat-get_1
+      parameters:
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property(,asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelEntityModelCat'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelEntityModelCat'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelEntityModelCat'
+    post:
+      tags:
+      - cat-entity-controller
+      description: create-cat
+      operationId: postCollectionResource-cat-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cat'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelCat'
+  /cats/{id}:
+    get:
+      tags:
+      - cat-entity-controller
+      description: get-cat
+      operationId: getItemResource-cat-get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelCat'
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - cat-entity-controller
+      description: update-cat
+      operationId: putItemResource-cat-put
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cat'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelCat'
+        "201":
+          description: Created
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelCat'
+        "204":
+          description: No Content
+    delete:
+      tags:
+      - cat-entity-controller
+      description: delete-cat
+      operationId: deleteItemResource-cat-delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+    patch:
+      tags:
+      - cat-entity-controller
+      description: patch-cat
+      operationId: patchItemResource-cat-patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cat'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelCat'
+        "204":
+          description: No Content
+  /cats/{id}/owner:
+    get:
+      tags:
+      - cat-property-reference-controller
+      description: get-owner-by-cat-Id
+      operationId: followPropertyReference-cat-get_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - cat-property-reference-controller
+      description: update-owner-by-cat-Id
+      operationId: createPropertyReference-cat-put
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+          application/x-spring-data-compact+json:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+          text/uri-list:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+        "201":
+          description: Created
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+        "204":
+          description: No Content
+    delete:
+      tags:
+      - cat-property-reference-controller
+      description: delete-owner-by-cat-Id
+      operationId: deletePropertyReference-cat-delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+    patch:
+      tags:
+      - cat-property-reference-controller
+      description: patch-owner-by-cat-Id
+      operationId: createPropertyReference-cat-patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+          application/x-spring-data-compact+json:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+          text/uri-list:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+        "204":
+          description: No Content
+  /cats/{id}/owner/{propertyId}:
+    get:
+      tags:
+      - cat-property-reference-controller
+      description: get-owner-by-cat-Id
+      operationId: followPropertyReference-cat-get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+        "404":
+          description: Not Found
+    delete:
+      tags:
+      - cat-property-reference-controller
+      description: delete-owner-by-cat-Id
+      operationId: deletePropertyReferenceId-cat-delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
   /clinics:
     get:
       tags:
@@ -24,7 +334,7 @@ paths:
                 $ref: '#/components/schemas/CollectionModelEntityModelClinic'
             text/uri-list:
               schema:
-                type: string
+                $ref: '#/components/schemas/CollectionModelEntityModelClinic'
     post:
       tags:
       - clinic-entity-controller
@@ -34,8 +344,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ClinicRequestBody'
-        required: true
+              $ref: '#/components/schemas/Clinic'
       responses:
         "201":
           description: Created
@@ -79,8 +388,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ClinicRequestBody'
-        required: true
+              $ref: '#/components/schemas/Clinic'
       responses:
         "200":
           description: OK
@@ -127,8 +435,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ClinicRequestBody'
-        required: true
+              $ref: '#/components/schemas/Clinic'
       responses:
         "200":
           description: OK
@@ -156,7 +463,7 @@ paths:
                 $ref: '#/components/schemas/CollectionModelEntityModelDoctor'
             text/uri-list:
               schema:
-                type: string
+                $ref: '#/components/schemas/CollectionModelEntityModelDoctor'
     post:
       tags:
       - doctor-entity-controller
@@ -166,8 +473,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DoctorRequestBody'
-        required: true
+              $ref: '#/components/schemas/Doctor'
       responses:
         "201":
           description: Created
@@ -191,7 +497,7 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/CollectionModelEntityModelDoctor'
+                $ref: '#/components/schemas/CollectionModelDoctor'
         "404":
           description: Not Found
   /doctors/{id}:
@@ -230,8 +536,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DoctorRequestBody'
-        required: true
+              $ref: '#/components/schemas/Doctor'
       responses:
         "200":
           description: OK
@@ -278,8 +583,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DoctorRequestBody'
-        required: true
+              $ref: '#/components/schemas/Doctor'
       responses:
         "200":
           description: OK
@@ -310,7 +614,7 @@ paths:
                 $ref: '#/components/schemas/CollectionModelClinic'
             text/uri-list:
               schema:
-                type: string
+                $ref: '#/components/schemas/CollectionModelClinic'
         "404":
           description: Not Found
     put:
@@ -334,8 +638,7 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              type: string
-        required: true
+              $ref: '#/components/schemas/CollectionModelObject'
       responses:
         "200":
           description: OK
@@ -388,8 +691,7 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              type: string
-        required: true
+              $ref: '#/components/schemas/CollectionModelObject'
       responses:
         "200":
           description: OK
@@ -446,6 +748,316 @@ paths:
           description: No Content
         "404":
           description: Not Found
+  /dogs:
+    get:
+      tags:
+      - dog-entity-controller
+      description: get-dog
+      operationId: getCollectionResource-dog-get_1
+      parameters:
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property(,asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelEntityModelDog'
+            application/x-spring-data-compact+json:
+              schema:
+                $ref: '#/components/schemas/CollectionModelEntityModelDog'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/CollectionModelEntityModelDog'
+    post:
+      tags:
+      - dog-entity-controller
+      description: create-dog
+      operationId: postCollectionResource-dog-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dog'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelDog'
+  /dogs/{id}:
+    get:
+      tags:
+      - dog-entity-controller
+      description: get-dog
+      operationId: getItemResource-dog-get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelDog'
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - dog-entity-controller
+      description: update-dog
+      operationId: putItemResource-dog-put
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dog'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelDog'
+        "201":
+          description: Created
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelDog'
+        "204":
+          description: No Content
+    delete:
+      tags:
+      - dog-entity-controller
+      description: delete-dog
+      operationId: deleteItemResource-dog-delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+    patch:
+      tags:
+      - dog-entity-controller
+      description: patch-dog
+      operationId: patchItemResource-dog-patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dog'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelDog'
+        "204":
+          description: No Content
+  /dogs/{id}/owner:
+    get:
+      tags:
+      - dog-property-reference-controller
+      description: get-owner-by-dog-Id
+      operationId: followPropertyReference-dog-get_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+            text/uri-list:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+        "404":
+          description: Not Found
+    put:
+      tags:
+      - dog-property-reference-controller
+      description: update-owner-by-dog-Id
+      operationId: createPropertyReference-dog-put
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+          application/x-spring-data-compact+json:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+          text/uri-list:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+        "201":
+          description: Created
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+        "204":
+          description: No Content
+    delete:
+      tags:
+      - dog-property-reference-controller
+      description: delete-owner-by-dog-Id
+      operationId: deletePropertyReference-dog-delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+    patch:
+      tags:
+      - dog-property-reference-controller
+      description: patch-owner-by-dog-Id
+      operationId: createPropertyReference-dog-patch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+          application/x-spring-data-compact+json:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+          text/uri-list:
+            schema:
+              $ref: '#/components/schemas/CollectionModelObject'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+        "204":
+          description: No Content
+  /dogs/{id}/owner/{propertyId}:
+    get:
+      tags:
+      - dog-property-reference-controller
+      description: get-owner-by-dog-Id
+      operationId: followPropertyReference-dog-get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/EntityModelOwner'
+        "404":
+          description: Not Found
+    delete:
+      tags:
+      - dog-property-reference-controller
+      description: delete-owner-by-dog-Id
+      operationId: deletePropertyReferenceId-dog-delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: propertyId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
   /owners:
     get:
       tags:
@@ -484,13 +1096,13 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/PagedModelEntityModelOwner'
+                $ref: '#/components/schemas/CollectionModelEntityModelOwner'
             application/x-spring-data-compact+json:
               schema:
-                $ref: '#/components/schemas/PagedModelEntityModelOwner'
+                $ref: '#/components/schemas/CollectionModelEntityModelOwner'
             text/uri-list:
               schema:
-                type: string
+                $ref: '#/components/schemas/CollectionModelEntityModelOwner'
     post:
       tags:
       - owner-entity-controller
@@ -500,8 +1112,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OwnerRequestBody'
-        required: true
+              $ref: '#/components/schemas/Owner'
       responses:
         "201":
           description: Created
@@ -545,8 +1156,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OwnerRequestBody'
-        required: true
+              $ref: '#/components/schemas/Owner'
       responses:
         "200":
           description: OK
@@ -593,8 +1203,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OwnerRequestBody'
-        required: true
+              $ref: '#/components/schemas/Owner'
       responses:
         "200":
           description: OK
@@ -625,7 +1234,7 @@ paths:
                 $ref: '#/components/schemas/CollectionModelPet'
             text/uri-list:
               schema:
-                type: string
+                $ref: '#/components/schemas/CollectionModelPet'
         "404":
           description: Not Found
     put:
@@ -649,8 +1258,7 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              type: string
-        required: true
+              $ref: '#/components/schemas/CollectionModelObject'
       responses:
         "200":
           description: OK
@@ -703,8 +1311,7 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              type: string
-        required: true
+              $ref: '#/components/schemas/CollectionModelObject'
       responses:
         "200":
           description: OK
@@ -799,13 +1406,13 @@ paths:
           content:
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/PagedModelEntityModelPet'
+                $ref: '#/components/schemas/CollectionModelEntityModelPet'
             application/x-spring-data-compact+json:
               schema:
-                $ref: '#/components/schemas/PagedModelEntityModelPet'
+                $ref: '#/components/schemas/CollectionModelEntityModelPet'
             text/uri-list:
               schema:
-                type: string
+                $ref: '#/components/schemas/CollectionModelEntityModelPet'
     post:
       tags:
       - pet-entity-controller
@@ -815,8 +1422,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PetRequestBody'
-        required: true
+              oneOf:
+              - $ref: '#/components/schemas/Cat'
+              - $ref: '#/components/schemas/Dog'
       responses:
         "201":
           description: Created
@@ -860,8 +1468,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PetRequestBody'
-        required: true
+              oneOf:
+              - $ref: '#/components/schemas/Cat'
+              - $ref: '#/components/schemas/Dog'
       responses:
         "200":
           description: OK
@@ -908,8 +1517,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PetRequestBody'
-        required: true
+              oneOf:
+              - $ref: '#/components/schemas/Cat'
+              - $ref: '#/components/schemas/Dog'
       responses:
         "200":
           description: OK
@@ -940,7 +1550,7 @@ paths:
                 $ref: '#/components/schemas/EntityModelOwner'
             text/uri-list:
               schema:
-                type: string
+                $ref: '#/components/schemas/EntityModelOwner'
         "404":
           description: Not Found
     put:
@@ -964,8 +1574,7 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              type: string
-        required: true
+              $ref: '#/components/schemas/CollectionModelObject'
       responses:
         "200":
           description: OK
@@ -1018,8 +1627,7 @@ paths:
               $ref: '#/components/schemas/CollectionModelObject'
           text/uri-list:
             schema:
-              type: string
-        required: true
+              $ref: '#/components/schemas/CollectionModelObject'
       responses:
         "200":
           description: OK
@@ -1088,7 +1696,7 @@ paths:
             application/hal+json:
               schema:
                 $ref: '#/components/schemas/RepresentationModelObject'
-  /profile/clinics:
+  /profile/cats:
     get:
       tags:
       - profile-controller
@@ -1106,7 +1714,7 @@ paths:
             application/schema+json:
               schema:
                 $ref: '#/components/schemas/JsonSchema'
-  /profile/doctors:
+  /profile/clinics:
     get:
       tags:
       - profile-controller
@@ -1124,7 +1732,7 @@ paths:
             application/schema+json:
               schema:
                 $ref: '#/components/schemas/JsonSchema'
-  /profile/owners:
+  /profile/doctors:
     get:
       tags:
       - profile-controller
@@ -1142,11 +1750,47 @@ paths:
             application/schema+json:
               schema:
                 $ref: '#/components/schemas/JsonSchema'
-  /profile/pets:
+  /profile/dogs:
     get:
       tags:
       - profile-controller
       operationId: descriptor_4
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/alps+json:
+              schema:
+                type: string
+            application/schema+json:
+              schema:
+                $ref: '#/components/schemas/JsonSchema'
+  /profile/owners:
+    get:
+      tags:
+      - profile-controller
+      operationId: descriptor_5
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/alps+json:
+              schema:
+                type: string
+            application/schema+json:
+              schema:
+                $ref: '#/components/schemas/JsonSchema'
+  /profile/pets:
+    get:
+      tags:
+      - profile-controller
+      operationId: descriptor_6
       responses:
         "200":
           description: OK
@@ -1229,47 +1873,65 @@ components:
           type: string
         country:
           type: string
-    EntityModelOwner:
+    Cat:
+      required:
+      - name
       type: object
-      properties:
-        firstname:
-          type: string
-        lastname:
-          type: string
-        addresses:
-          $ref: '#/components/schemas/Address'
-        _links:
-          $ref: '#/components/schemas/Links'
-    PageMetadata:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      - type: object
+        properties:
+          coat:
+            type: string
+            enum:
+            - TABBY
+            - TOROISE
+            - COLORPOINT
+            - BICOLOR
+            - TRICOLOR
+            - SOLID
+    Diet:
+      required:
+      - allowedFoods
+      - name
+      - prescriptionDate
       type: object
-      properties:
-        size:
-          type: integer
-          format: int64
-        totalElements:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-          format: int64
-        number:
-          type: integer
-          format: int64
-    PagedModelEntityModelOwner:
+      allOf:
+      - $ref: '#/components/schemas/Treatment'
+      - type: object
+        properties:
+          allowedFoods:
+            maxItems: 2147483647
+            minItems: 1
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+    Dog:
+      required:
+      - name
       type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            owners:
-              type: array
-              items:
-                $ref: '#/components/schemas/EntityModelOwner'
-        _links:
-          $ref: '#/components/schemas/Links'
-        page:
-          $ref: '#/components/schemas/PageMetadata'
-    OwnerRequestBody:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      - type: object
+        properties:
+          coat:
+            type: string
+            enum:
+            - SMOOTH
+            - SHORT
+            - COMBINATION
+            - DOUBLE
+            - HEAVY
+            - SILKY
+            - LONG
+            - CURLY
+            - WIRE
+            - HAIRLESS
+    Owner:
+      required:
+      - addresses
+      - lastname
       type: object
       properties:
         id:
@@ -1282,9 +1944,89 @@ components:
         addresses:
           $ref: '#/components/schemas/Address'
         pets:
+          uniqueItems: true
           type: array
           items:
-            type: string
+            oneOf:
+            - $ref: '#/components/schemas/Cat'
+            - $ref: '#/components/schemas/Dog'
+    Pet:
+      required:
+      - _type
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        owner:
+          $ref: '#/components/schemas/Owner'
+        weight:
+          type: number
+          format: double
+        treatments:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/Treatment'
+            - $ref: '#/components/schemas/Diet'
+        _type:
+          type: string
+      discriminator:
+        propertyName: _type
+    Treatment:
+      required:
+      - name
+      - prescriptionDate
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        prescriptionDate:
+          type: string
+          format: date
+        _type:
+          type: string
+      discriminator:
+        propertyName: _type
+    EntityModelOwner:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstname:
+          type: string
+        lastname:
+          type: string
+        addresses:
+          $ref: '#/components/schemas/Address'
+        pets:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Pet'
+        _links:
+          $ref: '#/components/schemas/Links'
+    CollectionModelEntityModelOwner:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            owners:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityModelOwner'
+        _links:
+          $ref: '#/components/schemas/Links'
     CollectionModelPet:
       type: object
       properties:
@@ -1294,7 +2036,9 @@ components:
             pets:
               type: array
               items:
-                $ref: '#/components/schemas/PetResponse'
+                oneOf:
+                - $ref: '#/components/schemas/Cat'
+                - $ref: '#/components/schemas/Dog'
         _links:
           $ref: '#/components/schemas/Links'
     CollectionModelObject:
@@ -1326,157 +2070,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Address'
-    ClinicResponse:
-      type: object
-      properties:
-        name:
-          type: string
-        addresses:
-          maxItems: 2147483647
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Address'
-    CollectionModelEntityModelClinic:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            clinics:
-              type: array
-              items:
-                $ref: '#/components/schemas/EntityModelClinic'
-        _links:
-          $ref: '#/components/schemas/Links'
-    EntityModelClinic:
-      type: object
-      properties:
-        name:
-          type: string
-        addresses:
-          maxItems: 2147483647
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Address'
-        _links:
-          $ref: '#/components/schemas/Links'
-    ClinicRequestBody:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        addresses:
-          maxItems: 2147483647
-          minItems: 1
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Address'
-    CollectionModelEntityModelDoctor:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            doctors:
-              type: array
-              items:
-                $ref: '#/components/schemas/EntityModelDoctor'
-        _links:
-          $ref: '#/components/schemas/Links'
-    EntityModelDoctor:
-      type: object
-      properties:
-        firstname:
-          type: string
-        lastname:
-          type: string
-        specialty:
-          type: string
-          enum:
-          - ALLERGY_AND_IMMUNOLOGY
-          - ADOLESCENT_MEDICINE
-          - ANESTHESIOLOGY
-          - AEROSPACE_MEDICINE
-          - BARIATRICS
-          - CARDIOLOGY
-          - CARDIOTHORACIC_SURGERY
-          - CHILD_AND_ADOLESCENT_PSYCHIATRY
-          - CLINICAL_NEUROPHYSIOLOGY
-          - COLORECTAL_SURGERY
-          - DERMATOLOGY
-          - DEVELOPMENTAL_PEDIATRICS
-          - EMERGENCY_MEDICINE
-          - ENDOCRINOLOGY
-          - FAMILY_MEDICINE
-          - FORENSIC_PATHOLOGY
-          - FORENSIC_PSYCHIATRY
-          - GASTROENTEROLOGY
-          - GENERAL_SURGERY
-          - GENERAL_SURGICAL_ONCOLOGY
-          - GERIATRICS
-          - GERIATRIC_PSYCHIATRY
-          - GYNECOLOGIC_ONCOLOGY
-          - HEMATOLOGY
-          - HEMATOLOGIC_PATHOLOGY
-          - INFECTIOUS_DISEASE
-          - INTERNAL_MEDICINE
-          - INTERVENTIONAL_RADIOLOGY
-          - INTENSIVE_CARE_MEDICINE
-          - MATERNAL_FETAL_MEDICINE
-          - MEDICAL_BIOCHEMISTRY
-          - MEDICAL_GENETICS
-          - MEDICAL_ONCOLOGY
-          - NEONATOLOGY
-          - NEPHROLOGY
-          - NEUROLOGY
-          - NEUROPATHOLOGY
-          - NEUROSURGERY
-          - NUCLEAR_MEDICINE
-          - OBSTETRICS_AND_GYNECOLOGY
-          - OCCUPATIONAL_MEDICINE
-          - OPHTHALMOLOGY
-          - ORTHOPEDIC_SURGERY
-          - ORAL_AND_MAXILLOFACIAL_SURGERY
-          - OTORHINOLARYNGOLOGY
-          - PALLIATIVE_CARE
-          - PATHOLOGY
-          - PEDIATRICS
-          - PEDIATRIC_ALLERGY_AND_IMMUNOLOGY
-          - PEDIATRIC_CARDIOLOGY
-          - PEDIATRIC_EMERGENCY_MEDICINE
-          - PEDIATRIC_ENDOCRINOLOGY
-          - PEDIATRIC_GASTROENTEROLOGY
-          - PEDIATRIC_HEMATOLOGY_AND_ONCOLOGY
-          - PEDIATRIC_INFECTIOUS_DISEASE
-          - PEDIATRIC_NEPHROLOGY
-          - PEDIATRIC_RESPIRATORY_MEDICINE
-          - PEDIATRIC_RHEUMATOLOGY
-          - PEDIATRIC_SURGERY
-          - PHYSICAL_MEDICINE_AND_REHABILITATION
-          - PLASTIC_RECONSTRUCTIVE_AND_AESTHETIC_SURGERY
-          - PSYCHIATRY
-          - PUBLIC_HEALTH
-          - RADIATION_ONCOLOGY
-          - RADIOLOGY
-          - REPRODUCTIVE_ENDOCRINOLOGY_AND_INFERTILITY
-          - RESPIRATORY_MEDICINE
-          - RHEUMATOLOGY
-          - SPORTS_MEDICINE
-          - THORACIC_SURGERY
-          - NEURORADIOLOGY
-          - UROLOGY
-          - VASCULAR_SURGERY
-        _links:
-          $ref: '#/components/schemas/Links'
-    DoctorRequestBody:
+    Doctor:
+      required:
+      - firstname
+      - lastname
       type: object
       properties:
         id:
@@ -1563,9 +2160,119 @@ components:
           - UROLOGY
           - VASCULAR_SURGERY
         clinics:
+          maxItems: 2147483647
+          minItems: 1
+          uniqueItems: true
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Clinic'
+    EntityModelDoctor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstname:
+          type: string
+        lastname:
+          type: string
+        specialty:
+          type: string
+          enum:
+          - ALLERGY_AND_IMMUNOLOGY
+          - ADOLESCENT_MEDICINE
+          - ANESTHESIOLOGY
+          - AEROSPACE_MEDICINE
+          - BARIATRICS
+          - CARDIOLOGY
+          - CARDIOTHORACIC_SURGERY
+          - CHILD_AND_ADOLESCENT_PSYCHIATRY
+          - CLINICAL_NEUROPHYSIOLOGY
+          - COLORECTAL_SURGERY
+          - DERMATOLOGY
+          - DEVELOPMENTAL_PEDIATRICS
+          - EMERGENCY_MEDICINE
+          - ENDOCRINOLOGY
+          - FAMILY_MEDICINE
+          - FORENSIC_PATHOLOGY
+          - FORENSIC_PSYCHIATRY
+          - GASTROENTEROLOGY
+          - GENERAL_SURGERY
+          - GENERAL_SURGICAL_ONCOLOGY
+          - GERIATRICS
+          - GERIATRIC_PSYCHIATRY
+          - GYNECOLOGIC_ONCOLOGY
+          - HEMATOLOGY
+          - HEMATOLOGIC_PATHOLOGY
+          - INFECTIOUS_DISEASE
+          - INTERNAL_MEDICINE
+          - INTERVENTIONAL_RADIOLOGY
+          - INTENSIVE_CARE_MEDICINE
+          - MATERNAL_FETAL_MEDICINE
+          - MEDICAL_BIOCHEMISTRY
+          - MEDICAL_GENETICS
+          - MEDICAL_ONCOLOGY
+          - NEONATOLOGY
+          - NEPHROLOGY
+          - NEUROLOGY
+          - NEUROPATHOLOGY
+          - NEUROSURGERY
+          - NUCLEAR_MEDICINE
+          - OBSTETRICS_AND_GYNECOLOGY
+          - OCCUPATIONAL_MEDICINE
+          - OPHTHALMOLOGY
+          - ORTHOPEDIC_SURGERY
+          - ORAL_AND_MAXILLOFACIAL_SURGERY
+          - OTORHINOLARYNGOLOGY
+          - PALLIATIVE_CARE
+          - PATHOLOGY
+          - PEDIATRICS
+          - PEDIATRIC_ALLERGY_AND_IMMUNOLOGY
+          - PEDIATRIC_CARDIOLOGY
+          - PEDIATRIC_EMERGENCY_MEDICINE
+          - PEDIATRIC_ENDOCRINOLOGY
+          - PEDIATRIC_GASTROENTEROLOGY
+          - PEDIATRIC_HEMATOLOGY_AND_ONCOLOGY
+          - PEDIATRIC_INFECTIOUS_DISEASE
+          - PEDIATRIC_NEPHROLOGY
+          - PEDIATRIC_RESPIRATORY_MEDICINE
+          - PEDIATRIC_RHEUMATOLOGY
+          - PEDIATRIC_SURGERY
+          - PHYSICAL_MEDICINE_AND_REHABILITATION
+          - PLASTIC_RECONSTRUCTIVE_AND_AESTHETIC_SURGERY
+          - PSYCHIATRY
+          - PUBLIC_HEALTH
+          - RADIATION_ONCOLOGY
+          - RADIOLOGY
+          - REPRODUCTIVE_ENDOCRINOLOGY_AND_INFERTILITY
+          - RESPIRATORY_MEDICINE
+          - RHEUMATOLOGY
+          - SPORTS_MEDICINE
+          - THORACIC_SURGERY
+          - NEURORADIOLOGY
+          - UROLOGY
+          - VASCULAR_SURGERY
+        clinics:
+          maxItems: 2147483647
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Clinic'
+        _links:
+          $ref: '#/components/schemas/Links'
+    CollectionModelEntityModelDoctor:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            doctors:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityModelDoctor'
+        _links:
+          $ref: '#/components/schemas/Links'
     CollectionModelClinic:
       type: object
       properties:
@@ -1575,22 +2282,43 @@ components:
             clinics:
               type: array
               items:
-                $ref: '#/components/schemas/ClinicResponse'
+                $ref: '#/components/schemas/Clinic'
         _links:
           $ref: '#/components/schemas/Links'
-    PetResponse:
+    CollectionModelDoctor:
       type: object
       properties:
-        name:
-          type: string
+        _embedded:
+          type: object
+          properties:
+            doctors:
+              type: array
+              items:
+                $ref: '#/components/schemas/Doctor'
+        _links:
+          $ref: '#/components/schemas/Links'
     EntityModelPet:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
         name:
+          type: string
+        owner:
+          $ref: '#/components/schemas/Owner'
+        weight:
+          type: number
+          format: double
+        treatments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Treatment'
+        _type:
           type: string
         _links:
           $ref: '#/components/schemas/Links'
-    PagedModelEntityModelPet:
+    CollectionModelEntityModelPet:
       type: object
       properties:
         _embedded:
@@ -1602,9 +2330,7 @@ components:
                 $ref: '#/components/schemas/EntityModelPet'
         _links:
           $ref: '#/components/schemas/Links'
-        page:
-          $ref: '#/components/schemas/PageMetadata'
-    PetRequestBody:
+    EntityModelDog:
       type: object
       properties:
         id:
@@ -1613,7 +2339,110 @@ components:
         name:
           type: string
         owner:
+          $ref: '#/components/schemas/Owner'
+        weight:
+          type: number
+          format: double
+        treatments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Treatment'
+        coat:
           type: string
+          enum:
+          - SMOOTH
+          - SHORT
+          - COMBINATION
+          - DOUBLE
+          - HEAVY
+          - SILKY
+          - LONG
+          - CURLY
+          - WIRE
+          - HAIRLESS
+        _links:
+          $ref: '#/components/schemas/Links'
+    CollectionModelEntityModelDog:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            pets:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityModelDog'
+        _links:
+          $ref: '#/components/schemas/Links'
+    EntityModelCat:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        owner:
+          $ref: '#/components/schemas/Owner'
+        weight:
+          type: number
+          format: double
+        treatments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Treatment'
+        coat:
+          type: string
+          enum:
+          - TABBY
+          - TOROISE
+          - COLORPOINT
+          - BICOLOR
+          - TRICOLOR
+          - SOLID
+        _links:
+          $ref: '#/components/schemas/Links'
+    CollectionModelEntityModelCat:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            pets:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityModelCat'
+        _links:
+          $ref: '#/components/schemas/Links'
+    EntityModelClinic:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        addresses:
+          maxItems: 2147483647
+          minItems: 1
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        _links:
+          $ref: '#/components/schemas/Links'
+    CollectionModelEntityModelClinic:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            clinics:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityModelClinic'
+        _links:
+          $ref: '#/components/schemas/Links'
     Link:
       type: object
       properties:

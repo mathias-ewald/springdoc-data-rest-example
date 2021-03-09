@@ -1,13 +1,15 @@
-package io.mewald.demo.model;
+package io.mewald.demo.model.medic;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import io.mewald.demo.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,19 +22,19 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Owner extends BaseEntity {
+public class Doctor extends BaseEntity {
 
+	@NotNull
 	private String firstname;
 	
 	@NotNull
 	private String lastname;
 	
-	@NotNull
-	@Embedded
-	private Address addresses;
-	
-	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy = "owner", cascade = { CascadeType.ALL })
-	private Set<Pet> pets;
+	@Enumerated(EnumType.STRING)
+	private Specialty specialty; 
+
+	@Size(min = 1)
+	@ManyToMany
+	private Set<Clinic> clinics;
 
 }

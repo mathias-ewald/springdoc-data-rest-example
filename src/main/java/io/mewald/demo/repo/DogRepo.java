@@ -5,9 +5,9 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import io.mewald.demo.model.pet.Owner;
+import io.mewald.demo.model.pet.Dog;
 
 @CrossOrigin
-public interface OwnerRepo extends JpaRepository<Owner, UUID> {
+public interface DogRepo extends JpaRepository<Dog, UUID> {
 
 }

@@ -1,10 +1,14 @@
-package io.mewald.demo.model;
+package io.mewald.demo.model.medic;
 
+import java.util.Set;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.mewald.demo.model.Address;
+import io.mewald.demo.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,13 +21,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pet extends BaseEntity {
+public class Clinic extends BaseEntity {
 
-	@Schema(required = false)
 	@NotNull
 	private String name;
-	
-	@ManyToOne
-	private Owner owner;
+
+	@Size(min = 1)
+	@ElementCollection
+	private Set<Address> addresses;
 
 }

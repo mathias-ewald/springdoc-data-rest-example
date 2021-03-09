@@ -1,5 +1,6 @@
 package io.mewald.demo;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,14 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
 import io.mewald.demo.model.Address;
-import io.mewald.demo.model.Clinic;
-import io.mewald.demo.model.Doctor;
-import io.mewald.demo.model.Owner;
-import io.mewald.demo.model.Pet;
+import io.mewald.demo.model.medic.Clinic;
+import io.mewald.demo.model.medic.Doctor;
+import io.mewald.demo.model.pet.Cat;
+import io.mewald.demo.model.pet.Dog;
+import io.mewald.demo.model.pet.Owner;
+import io.mewald.demo.model.pet.Pet;
+import io.mewald.demo.model.treat.Diet;
+import io.mewald.demo.model.treat.Treatment;
 import io.mewald.demo.repo.ClinicRepo;
 import io.mewald.demo.repo.DoctorRepo;
 import io.mewald.demo.repo.OwnerRepo;
@@ -81,11 +86,42 @@ public class Application {
 				.country("Kentucky").build())
 			.build());
 		
-		Pet p1 = pRepo.save(Pet.builder().name("Bella").owner(o1).build());
-		Pet p2 = pRepo.save(Pet.builder().name("Luna").owner(o1).build());
-		Pet p3 = pRepo.save(Pet.builder().name("Charlie").owner(o1).build());
-		Pet p4 = pRepo.save(Pet.builder().name("Lucy").owner(o1).build());
-		Pet p5 = pRepo.save(Pet.builder().name("Cooper").owner(o1).build());
+		Pet p1 = pRepo.save(Dog.builder()
+			.name("Bella")
+			.owner(o1)
+			.coat(Dog.CoatType.HAIRLESS)
+			.treatments(List.of(
+				Treatment.builder().name("Cut claws").description(null).build(),
+				Diet.dietBuilder().name("Diet Plan").description(null).allowedFoods(Set.of("Rice", "Vegetables")).build()
+			))
+			.build());
+		
+		Pet p2 = pRepo.save(Dog.builder()
+			.name("Luna")
+			.weight(30.2)
+			.owner(o1)
+			.coat(Dog.CoatType.DOUBLE)
+			.build());
+
+		Pet p3 = pRepo.save(Cat.builder()
+			.name("Charlie")
+			.weight(25.8)
+			.owner(o1)
+			.coat(Cat.CoatType.COLORPOINT)
+			.build());
+		
+		Pet p4 = pRepo.save(Cat.builder()
+			.name("Lucy")
+			.weight(3.5)
+			.owner(o1)
+			.coat(Cat.CoatType.SOLID)
+			.build());
+		
+		Pet p5 = pRepo.save(Dog.builder()
+			.name("Cooper")
+			.owner(o1)
+			.coat(Dog.CoatType.SHORT)
+			.build());
 				
 		Owner o2 = oRepo.save(Owner.builder()
 			.firstname("Minni").lastname("Mouse")
@@ -95,9 +131,23 @@ public class Application {
 				.country("Glasgow").build())
 			.build());
 		
-		Pet p6 = pRepo.save(Pet.builder().name("Max").owner(o2).build());
-		Pet p7 = pRepo.save(Pet.builder().name("Bailey").owner(o2).build());
-		Pet p8 = pRepo.save(Pet.builder().name("Daisy").owner(o2).build());
+		Pet p6 = pRepo.save(Dog.builder()
+			.name("Max")
+			.owner(o2)
+			.coat(Dog.CoatType.HEAVY)
+			.build());
+
+		Pet p7 = pRepo.save(Cat.builder()
+			.name("Bailey")
+			.owner(o2)
+			.coat(Cat.CoatType.TRICOLOR)
+			.build());
+		
+		Pet p8 = pRepo.save(Cat.builder()
+			.name("Daisy")
+			.owner(o2)
+			.coat(Cat.CoatType.BICOLOR)
+			.build());
 	}
 
 	

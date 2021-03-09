@@ -1,4 +1,4 @@
-package io.mewald.demo.model;
+package io.mewald.demo.model.medic;
 
 public enum Specialty {
 
